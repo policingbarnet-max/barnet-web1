@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Auth Callback | Barnet Roleplay</title>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; background:#f4f6f9; color:#111; display:flex; align-items:center; justify-content:center; height:100vh; }
+        .card { background:white; padding:24px; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,0.08); max-width:720px; width:100%; }
+        pre { background:#f0f2f5; padding:12px; border-radius:4px; overflow:auto; }
+        .success { color: #1e7e34; font-weight:600 }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Discord OAuth Callback</h2>
+        <div id="content">
+            <p>Processing authentication...</p>
+        </div>
+    </div>
+
+    <script>
+        // Parse query string
+        function qs() {
+            const q = {};
+            location.search.slice(1).split('&').forEach(function(part) {
+                if (!part) return;
+                const kv = part.split('=');
+                q[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+            });
+            return q;
+        }
+
+        const params = qs();
+        const content = document.getElementById('content');
+
+        if (params.error) {
+            content.innerHTML = `<p style="color:#c53737">OAuth error: ${params.error}</p>`;
+        } else if (params.code) {
+            // We have an authorization code. Send to backend to exchange for tokens.
+            content.innerHTML = `<p class="success">Authorization code received.</p><p>Exchanging code for tokens...</p>`;
+
+            // POST the code to server endpoint /auth/token
+            fetch('/auth/token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: params.code })
+            }).then(r => r.json())
+            .then(data => {
+                if (data.error) {
+                    content.innerHTML = `<p style="color:#c53737">Token exchange failed: ${data.error}</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    return;
+                }
+                // Show user info if returned
+                content.innerHTML = `<p class="success">Logged in successfully.</p>`;
+                if (data.user) {
+                    content.innerHTML += `<p>Welcome, <strong>${data.user.username}#${data.user.discriminator}</strong></p>`;
+                }
+                content.innerHTML += `<h4>Tokens</h4><pre>${JSON.stringify(data.tokens, null, 2)}</pre>`;
+            }).catch(err => {
+                content.innerHTML = `<p style="color:#c53737">Request failed: ${err.message}</p>`;
+            });
+        } else {
+            content.innerHTML = '<p>No authorization code found in the URL.</p>';
+        }
+    </script>
+</body>
+</html>

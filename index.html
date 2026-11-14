@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage | Barnet Roleplay</title>
+    <link rel="icon" type="image/png" href="BRP_-_Logo_1.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: #0b1f3a;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0b1f3a;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .logo-icon img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        .auth-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            padding: 5px 10px;
+            transition: color 0.3s;
+        }
+
+        .auth-links a:hover {
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            height: 700px;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 31, 58, 0.6);
+            z-index: 5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #0b1f3a;
+            color: white;
+            border: 2px solid #0b1f3a;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b1f3a;
+            border-color: #0b1f3a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: #0b1f3a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content Section */
+        .content-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 30px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            color: #0b1f3a;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(11, 31, 58, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid #0b1f3a;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(11, 31, 58, 0.2);
+        }
+
+        .feature-card h3 {
+            color: #0b1f3a;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0b1f3a;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .hero {
+                height: 500px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-container">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="logo-icon"><img src="BRP_-_Logo_1.png" alt="Barnet Roleplay logo"></div>
+                <span style="color: white; font-size: 18px; font-weight: bold;">Barnet Roleplay</span>
+            </div>
+            <nav>
+                <a href="#home">Homepage</a>
+                <a href="https://discord.gg/Xjn9CdJRGA" target="_blank">Get Involved</a>
+                <a href="rules.html">Rules</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Barnet Roleplay</h1>
+            <p>Professionalism. Realism. Excellence.</p>
+            <div class="cta-buttons">
+                <a href="https://discord.gg/Xjn9CdJRGA" class="btn btn-primary" target="_blank">Join our Discord</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rules moved to rules.html -->
+
+    <!-- Features Section -->
+    <section class="content-section" id="features">
+        <h2 class="section-title">Why Join Us?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>🎯 Immersive Gameplay</h3>
+                <p>Experience realistic roleplay scenarios with our dedicated community and professional command team.</p>
+            </div>
+            <div class="feature-card">
+                <h3>👥 Active Community</h3>
+                <p>Join thousands of players in a vibrant and welcoming roleplay community with daily events and activities.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚙️ Regular Updates</h3>
+                <p>Stay engaged with constant improvements, new features, and community-driven development.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🏆 Fair Play</h3>
+                <p>Experience balanced gameplay with transparent rules and dedicated administrators ensuring fair play.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🎓 Training Programs</h3>
+                <p>Comprehensive training and mentorship programs to help new members get started quickly.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💬 24/7 Support</h3>
+                <p>Get help when you need it with our active support team available on Discord.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Barnet Roleplay. All rights reserved.</p>
+        <p><a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a> | <a href="https://discord.gg/Xjn9CdJRGA" target="_blank">Contact Us</a></p>
+    </footer>
+
+    <script>
+        // Array of background images (excluding AS.png and BRP_-_Logo_1.png)
+        const backgroundImages = ['1.png', '2.png', '3.png', '4.png', '5.png', 'fms.png'];
+        
+        // Function to set random background image
+        // --- Registration modal and remember-me handling ---
+        const registerLink = document.getElementById('register-link');
+        const registerModal = document.getElementById('register-modal');
+        const registerForm = document.getElementById('register-form');
+        const cancelRegister = document.getElementById('cancel-register');
+
+        function openRegister() {
+            registerModal.style.display = 'flex';
+            // prefill if stored
+            const saved = localStorage.getItem('lenw_user');
+            if (saved) {
+                try {
+                    const obj = JSON.parse(saved);
+                    if (obj.rpname) document.getElementById('rpname').value = obj.rpname;
+                    if (obj.password) document.getElementById('password').value = obj.password;
+                } catch (e) { /* ignore */ }
+            }
+        }
+
+        function closeRegister() {
+            registerModal.style.display = 'none';
+        }
+
+        function setRandomBackground() {
+            const randomImage = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
+            const heroSection = document.querySelector('.hero');
+            heroSection.style.backgroundImage = `url('${randomImage}')`;
+        }
+        
+        // Set random background when page loads
+        window.addEventListener('load', setRandomBackground);
+    </script>
+</body>
+</html>
